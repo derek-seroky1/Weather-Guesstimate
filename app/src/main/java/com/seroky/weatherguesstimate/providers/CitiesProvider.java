@@ -51,11 +51,14 @@ public class CitiesProvider
     {
         ArrayList<City> cities = new ArrayList<>();
         String cityToFind = name.toLowerCase();
-        for (City city : mCities)
+        if (mCities != null)
         {
-            if (city.getName().toLowerCase().contains(cityToFind))
+            for (City city : mCities)
             {
-                cities.add(city);
+                if (city.getName().toLowerCase().contains(cityToFind))
+                {
+                    cities.add(city);
+                }
             }
         }
         return cities;

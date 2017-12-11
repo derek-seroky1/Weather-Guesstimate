@@ -27,8 +27,6 @@ public class MainViewModel implements WeatherProvider.IWeatherReady
     public MainViewModel(Context applicationContext)
     {
         mContext = applicationContext;
-
-//        getWeatherForCity();
     }
 
     /**
