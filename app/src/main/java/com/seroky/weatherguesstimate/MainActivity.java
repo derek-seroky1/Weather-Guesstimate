@@ -42,7 +42,31 @@ public class MainActivity extends AppCompatActivity
         //Initialize the cities provider in the background for quicker search
         CitiesProvider.getInstance(getApplicationContext());
 
-        new CountDownTimer(5000, 1000) {
+        MainViewModel mainViewModel = new MainViewModel(getApplicationContext());
+
+        InputStream is = null;
+        byte[] bytes;
+        try
+        {
+            is = getAssets().open("weather_200w_d.gif");
+            bytes = new byte[is.available()];
+            is.read(bytes);
+            is.close();
+            gifView = findViewById(R.id.gif_image_view);
+            gifView.setBytes(bytes);
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        new CountDownTimer(6000, 1000) {
 
             /**
              * Callback fired on regular interval.
@@ -64,33 +88,6 @@ public class MainActivity extends AppCompatActivity
                 openCities();
             }
         }.start();
-
-        MainViewModel mainViewModel = new MainViewModel(getApplicationContext());
-
-        InputStream is = null;
-        byte[] bytes;
-        try
-        {
-            is = getAssets().open("weather_200w_d.gif");
-            bytes = new byte[is.available()];
-            is.read(bytes);
-            is.close();
-            gifView = findViewById(R.id.gif_image_view);
-//        Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.weather_200w_d);
-//        bitmap
-            gifView.setBytes(bytes);
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
-
-    }
-
-    @Override
-    protected void onStart()
-    {
-        super.onStart();
         gifView.startAnimation();
     }
 
