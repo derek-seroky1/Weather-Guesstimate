@@ -17,7 +17,9 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.felipecsl.gifimageview.library.GifImageView;
+import com.seroky.weatherguesstimate.models.weather.Results;
 import com.seroky.weatherguesstimate.providers.CitiesProvider;
+import com.seroky.weatherguesstimate.providers.WeatherProvider;
 import com.seroky.weatherguesstimate.viewmodels.MainViewModel;
 import com.seroky.weatherguesstimate.views.CityListViewActivity;
 
@@ -28,7 +30,7 @@ import java.io.InputStream;
  * This class should display the current weather for the current location (default= New York City)
  * This view should display the 5 day forecast
  */
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity implements CitiesProvider.ICitiesReady
 {
 
     GifImageView gifView;
@@ -40,10 +42,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         //Initialize the cities provider in the background for quicker search
-        CitiesProvider.getInstance(getApplicationContext());
+        CitiesProvider.getInstance(getApplicationContext()).setListeners(this);
 
         MainViewModel mainViewModel = new MainViewModel(getApplicationContext());
-
         InputStream is = null;
         byte[] bytes;
         try
@@ -66,28 +67,6 @@ public class MainActivity extends AppCompatActivity
     protected void onStart()
     {
         super.onStart();
-        new CountDownTimer(6000, 1000) {
-
-            /**
-             * Callback fired on regular interval.
-             *
-             * @param millisUntilFinished The amount of time until finished.
-             */
-            @Override
-            public void onTick(long millisUntilFinished)
-            {
-
-            }
-
-            /**
-             * Callback fired when the time is up.
-             */
-            @Override
-            public void onFinish()
-            {
-                openCities();
-            }
-        }.start();
         gifView.startAnimation();
     }
 
@@ -105,7 +84,7 @@ public class MainActivity extends AppCompatActivity
         {
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         }
-        searchView.setIconifiedByDefault(true); // Do not iconify the widget; expand it by default
+        searchView.setIconifiedByDefault(true);
 
         return true;
     }
@@ -120,5 +99,11 @@ public class MainActivity extends AppCompatActivity
     {
         super.onStop();
         gifView.stopAnimation();
+    }
+
+    @Override
+    public void CitiesLoaded()
+    {
+        openCities();
     }
 }
