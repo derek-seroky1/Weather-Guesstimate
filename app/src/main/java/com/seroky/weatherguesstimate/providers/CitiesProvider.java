@@ -5,7 +5,7 @@ import android.content.res.AssetManager;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.seroky.weatherguesstimate.models.City;
+import com.seroky.weatherguesstimate.models.city.City;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -60,7 +60,6 @@ public class CitiesProvider
         }
         return cities;
     }
-
 
     /**
      * Private class to load the Asset off the gui thread.

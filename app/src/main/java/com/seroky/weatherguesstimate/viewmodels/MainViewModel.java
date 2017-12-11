@@ -1,12 +1,13 @@
 package com.seroky.weatherguesstimate.viewmodels;
 
 import android.content.Context;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
-import com.seroky.weatherguesstimate.GsonRequest;
+import com.seroky.weatherguesstimate.providers.GsonRequest;
 import com.seroky.weatherguesstimate.models.weather.Results;
 import com.seroky.weatherguesstimate.providers.WeatherProvider;
 
@@ -15,13 +16,8 @@ import com.seroky.weatherguesstimate.providers.WeatherProvider;
  * Created by derek on 12/10/17.
  */
 
-public class MainViewModel
+public class MainViewModel implements WeatherProvider.IWeatherReady
 {
-    private static String FILE_NAME        = "current.city.list.json";
-    private static String DEFAULT_CITY     = "NEW YORK CITY"; //This is the default to set if no city is currently selected.
-    private static String API_KEY          = "&APPID=4bbf6f21923a4e503dd7b558778da1e0"; //not best way to store this...
-    private static String WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/forecast?id=";
-    private static String SAMPLE_URL = "https://api.openweathermap.org/data/2.5/forecast?id=5128581&appid=4bbf6f21923a4e503dd7b558778da1e0";
 
     private Results mWeather;
     private RequestQueue mRequestQueue;
@@ -31,7 +27,8 @@ public class MainViewModel
     public MainViewModel(Context applicationContext)
     {
         mContext = applicationContext;
-        getWeatherForCity();
+
+//        getWeatherForCity();
     }
 
     /**
@@ -46,34 +43,18 @@ public class MainViewModel
         // get new info from the server
         if (mWeather == null )
         {
-            mRequestQueue = Volley.newRequestQueue(mContext);
-            GsonRequest<Results> gsonWeatherRequest = new GsonRequest<>
-                    (SAMPLE_URL, Results.class, null, new Response.Listener<Results>()
-                    {
-                        @Override
-                        public void onResponse(Results results)
-                        {
-                            mWeather = results;
-                            WeatherProvider.StoreResultToFile(mContext, results);
-
-                        }
-                    }, new Response.ErrorListener()
-                    {
-
-                        @Override
-                        public void onErrorResponse(VolleyError error)
-                        {
-                            int code = error.networkResponse.statusCode;
-                            // TODO Auto-generated method stub
-                            System.out.println("Oh NOOOO!!!");
-                        }
-                    });
-
-            mRequestQueue.add(gsonWeatherRequest);
+//            WeatherProvider.getInstance().getWeatherForCity(mContext, );
         }
         else
         {
             System.out.println("Found: " + mWeather.toString());
         }
+    }
+
+    @Override
+    public Results weatherResults(Results results)
+    {
+        mWeather = results;
+        return null;
     }
 }

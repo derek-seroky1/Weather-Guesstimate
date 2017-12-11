@@ -4,19 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.seroky.weatherguesstimate.views.CityListViewActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.seroky.weatherguesstimate.views.CityListViewActivity"
+    android:background="@color/colorPrimary"
+    >
     <!--<data>-->
         <!--<variable android:name="cityVM" android:type="com.seroky.weatherguesstimate.viewmodels.CitiesViewModel"/>-->
     <!--</data>-->
-
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/citiesRecyclerView"
-        android:layout_height="match_parent"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="New York"
+        />
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/my_toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         >
 
 
-    </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/citiesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+
+        </android.support.v7.widget.RecyclerView>
+</FrameLayout>
 </android.support.constraint.ConstraintLayout>

@@ -7,14 +7,13 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Wrapper class for Snow
  * Created by derek on 12/10/17.
  */
 
-public class Snow implements Parcelable
+public class Rain implements Parcelable
 {
     /**
-     * Amount of Snow in 3 hours
+     * Amount of Rain in 3 hours
      */
     @SerializedName("3h")
     @Expose
@@ -40,27 +39,27 @@ public class Snow implements Parcelable
         dest.writeValue(this._3h);
     }
 
-    public Snow()
+    public Rain()
     {
     }
 
-    protected Snow(Parcel in)
+    protected Rain(Parcel in)
     {
         this._3h = (Double) in.readValue(Double.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<Snow> CREATOR = new Parcelable.Creator<Snow>()
+    public static final Parcelable.Creator<Rain> CREATOR = new Parcelable.Creator<Rain>()
     {
         @Override
-        public Snow createFromParcel(Parcel source)
+        public Rain createFromParcel(Parcel source)
         {
-            return new Snow(source);
+            return new Rain(source);
         }
 
         @Override
-        public Snow[] newArray(int size)
+        public Rain[] newArray(int size)
         {
-            return new Snow[size];
+            return new Rain[size];
         }
     };
 }

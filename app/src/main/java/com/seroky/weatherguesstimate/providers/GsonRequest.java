@@ -1,4 +1,4 @@
-package com.seroky.weatherguesstimate;
+package com.seroky.weatherguesstimate.providers;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;

@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
 import com.seroky.weatherguesstimate.R;
-import com.seroky.weatherguesstimate.models.City;
+import com.seroky.weatherguesstimate.models.city.City;
 import com.seroky.weatherguesstimate.providers.CitiesProvider;
 import com.seroky.weatherguesstimate.viewmodels.CitySearchViewModel;
 

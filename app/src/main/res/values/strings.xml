@@ -2,4 +2,7 @@
     <string name="app_name">Weather Guesstimate</string>
     <string name="search_hint">City Name</string>
     <string name="search_title">City</string>
+    <string name="title_forecast_list">Forecasts</string>
+    <string name="title_forecast_detail">Forecast Detail</string>
+    <string name="catch_line">50% Accurate 100% of the Time!</string>
 </resources>

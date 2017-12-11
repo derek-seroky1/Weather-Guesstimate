@@ -2,7 +2,7 @@ package com.seroky.weatherguesstimate.models.weather;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.seroky.weatherguesstimate.models.City;
+import com.seroky.weatherguesstimate.models.city.City;
 
 /**
  * Created by derek on 12/10/17.
