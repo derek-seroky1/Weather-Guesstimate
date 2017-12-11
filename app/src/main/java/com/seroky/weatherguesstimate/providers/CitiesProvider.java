@@ -27,6 +27,7 @@ public class CitiesProvider
     private static CitiesProvider sCitiesProvider;
     final private AtomicReference<City[]> contents =
             new AtomicReference<>();
+    ArrayList<ICitiesReady> mListeners = new ArrayList();
 
     private List<City> mCities;
 
@@ -36,6 +37,11 @@ public class CitiesProvider
         {
             new LoadAssetsThread(context.getAssets()).start();
         }
+    }
+
+    public void setListeners(ICitiesReady listener)
+    {
+        mListeners.add(listener);
     }
 
     public static CitiesProvider getInstance(Context applicationContext)
@@ -92,8 +98,6 @@ public class CitiesProvider
         @Override
         public void run()
         {
-
-            //TODO move this into a singleton provider class to load once and get data.
             Gson gson =new Gson();
             try {
                 InputStream is =assets.open("city.list.json");
@@ -105,6 +109,17 @@ public class CitiesProvider
                 Log.e(getClass().getSimpleName(), "Exception parsing JSON", e);
             }
             mCities = Arrays.asList(contents.get());
+            for (ICitiesReady listener : mListeners)
+            {
+                listener.CitiesLoaded();
+            }
         }
+
+
+    }
+
+    public interface ICitiesReady
+    {
+        void CitiesLoaded();
     }
 }
